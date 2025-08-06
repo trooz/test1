@@ -4,7 +4,9 @@ on:
     types: [closed]
 jobs:
   create-release:
-    if: github.event.pull_request.merged == true && github.actor == 'vivodi'
+    if:
+      github.event.pull_request.merged == true && github.actor ==
+      'vivodi'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -20,8 +22,8 @@ jobs:
           cmd: yq .project.version pyproject.toml
       - name: Create git tag
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "github-actions@github.com"
+          git config user.name github-actions[bot]
+          git config user.email github-actions[bot]@users.noreply.github.com
           git tag ${{ steps.get_version.outputs.result }}
           git push origin ${{ steps.get_version.outputs.result }}
       - name: Release
