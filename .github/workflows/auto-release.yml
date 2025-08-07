@@ -5,12 +5,12 @@ on:
 jobs:
   create-release:
     if:
-      github.event.pull_request.merged == true && github.event.head_commit.author.name ==
-      'vivodi'
+      github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
+      - run: echo ${{github.event.head_commit.author.name}}
       - name: Checkout
         uses: actions/checkout@v4
         with:
